@@ -14,6 +14,12 @@ class IamApplication {
     fun commandLineRunner(iamClient: IamClient) = CommandLineRunner {
         runBlocking {
             iamClient.registerClient()
+            iamClient.updateClient(
+                listOf(
+                    "http://localhost:8080/login/oauth2/code/iam",
+                    "http://localhost:8081/login/oauth2/code/iam"
+                )
+            )
         }
     }
 }

@@ -6,81 +6,29 @@ option java_multiple_files = true;
 option java_package = "com.example.iam.grpc";
 option java_outer_classname = "IamProto";
 
-service ClientManagementService {
+service IamRegistration {
   rpc RegisterClient(RegisterClientRequest) returns (RegisterClientResponse);
-  rpc GetClient(GetClientRequest) returns (GetClientResponse);
   rpc UpdateClient(UpdateClientRequest) returns (UpdateClientResponse);
   rpc DeleteClient(DeleteClientRequest) returns (DeleteClientResponse);
-  rpc ListClients(ListClientsRequest) returns (ListClientsResponse);
 }
 
 message RegisterClientRequest {
-  string client_name = 1;
-  repeated string client_authentication_methods = 2;
-  repeated string authorization_grant_types = 3;
-  repeated string redirect_uris = 4;
-  repeated string post_logout_redirect_uris = 5;
-  repeated string scopes = 6;
-  int64 access_token_ttl = 7;
-  int64 refresh_token_ttl = 8;
-  bool require_authorization_consent = 9;
-  bool require_proof_key = 10;
-  bool reuse_refresh_tokens = 11;
-  string description = 12;
+  string client_id = 1;
+  string client_secret = 2;
+  repeated string redirect_uris = 3;
 }
 
 message RegisterClientResponse {
-  string id = 1;
-  string client_id = 2;
-  string client_secret = 3;
-  string client_name = 4;
-  repeated string client_authentication_methods = 5;
-  repeated string authorization_grant_types = 6;
-  repeated string redirect_uris = 7;
-  repeated string post_logout_redirect_uris = 8;
-  repeated string scopes = 9;
-  ClientSettings client_settings = 10;
-  TokenSettings token_settings = 11;
-  string created_at = 12;
-}
-
-message ClientSettings {
-  bool require_authorization_consent = 1;
-  bool require_proof_key = 2;
-}
-
-message TokenSettings {
-  int64 access_token_ttl = 1;
-  int64 refresh_token_ttl = 2;
-  bool reuse_refresh_tokens = 3;
-}
-
-message GetClientRequest {
-  string client_id = 1;
-}
-
-message GetClientResponse {
-  string id = 1;
-  string client_id = 2;
-  string client_name = 3;
-  repeated string client_authentication_methods = 4;
-  repeated string authorization_grant_types = 5;
-  repeated string redirect_uris = 6;
-  repeated string post_logout_redirect_uris = 7;
-  repeated string scopes = 8;
-  ClientSettings client_settings = 9;
-  TokenSettings token_settings = 10;
-  string created_at = 11;
-  bool is_active = 12;
+  string status = 1;
 }
 
 message UpdateClientRequest {
   string client_id = 1;
-  RegisterClientRequest update_data = 2;
+  repeated string redirect_uris = 2;
 }
 
 message UpdateClientResponse {
-  GetClientResponse client = 1;
+  string status = 1;
 }
 
 message DeleteClientRequest {
@@ -88,29 +36,5 @@ message DeleteClientRequest {
 }
 
 message DeleteClientResponse {
-  bool success = 1;
-  string message = 2;
-}
-
-message ListClientsRequest {
-  int32 page = 1;
-  int32 size = 2;
-  string filter = 3;
-}
-
-message ListClientsResponse {
-  repeated ClientSummary clients = 1;
-  int32 total_count = 2;
-  int32 page = 3;
-  int32 size = 4;
-}
-
-message ClientSummary {
-  string id = 1;
-  string client_id = 2;
-  string client_name = 3;
-  repeated string authorization_grant_types = 4;
-  repeated string scopes = 5;
-  string created_at = 6;
-  bool is_active = 7;
+  string status = 1;
 }
