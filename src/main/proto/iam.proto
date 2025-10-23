@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+package com.example.iam.grpc;
+
+option java_multiple_files = true;
+option java_package = "com.example.iam.grpc";
+option java_outer_classname = "IamProto";
+
+service IamRegistration {
+  rpc RegisterClient(RegisterClientRequest) returns (RegisterClientResponse);
+}
+
+message RegisterClientRequest {
+  string client_id = 1;
+  string client_secret = 2;
+  repeated string redirect_uris = 3;
+}
+
+message RegisterClientResponse {
+  string status = 1;
+}
